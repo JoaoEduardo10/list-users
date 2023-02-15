@@ -6,6 +6,11 @@ export class GetAllUserRepository implements IGetAllUserRepository {
   async getAll(): Promise<IUser[]> {
     const user = await User.find();
 
-    return user.map(({ _id, ...rest }) => ({ id: _id.toHexString(), ...rest }));
+    return user.map(({ _id, password, name, email }) => ({
+      id: _id.toHexString(),
+      password,
+      name,
+      email,
+    }));
   }
 }
