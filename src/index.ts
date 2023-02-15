@@ -7,6 +7,7 @@ import { app } from "./server/server";
 MongoDb.connect()
   .then(() => {
     const PORT = process.env.PORT;
+
     app.listen(PORT, () => console.log(`servido iniciado na porta ${PORT}`));
   })
   .catch((error) => console.error(`error: ${error}`));
