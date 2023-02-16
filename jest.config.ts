@@ -4,7 +4,19 @@
  */
 
 export default {
+  // All imported modules in your tests should be mocked automatically
+  // automock: false,
+
+  // Stop running tests after `n` failures
+  // bail: 0,
+
+  // The directory where Jest should store its cached dependency information
+  // cacheDirectory: "/tmp/jest_rs",
+
+  // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
+
+  // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
@@ -23,6 +35,7 @@ export default {
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ["json"],
+  testEnvironment: "node",
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -137,10 +150,10 @@ export default {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    "<rootDir>/src/**/**/*.spec.ts",
-    "<rootDir>/src/**/**/*.test.ts",
     "<rootDir>/src/**/*.spec.ts",
     "<rootDir>/src/**/*.test.ts",
+    "<rootDir>/src/**/**/*.spec.ts",
+    "<rootDir>/src/**/**/*.test.ts",
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
@@ -159,7 +172,28 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest",
+      {
+        jsc: {
+          parser: {
+            syntax: "typescript",
+            tsx: false,
+            decorators: true,
+          },
+          target: "es2017",
+          keepClassNames: true,
+          transform: {
+            legacyDecorator: true,
+            decoratorMetadata: true,
+          },
+        },
+        module: {
+          type: "es6",
+          noInterop: false,
+        },
+      },
+    ],
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
