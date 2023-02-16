@@ -7,7 +7,9 @@ import { ICreateUserParams, ICreateUserRepository } from "./protocols";
 
 export class CreateUserControllers implements IControlers {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
-  async hendle(req: IHttRequest<ICreateUserParams>): Promise<IHttResponse> {
+  async hendle(
+    req: IHttRequest<ICreateUserParams | string>
+  ): Promise<IHttResponse> {
     try {
       const body = req.body as ICreateUserParams;
 

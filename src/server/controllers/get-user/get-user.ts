@@ -6,7 +6,7 @@ import { IUser } from "../../models/user";
 
 export class GetUserControllers implements IControlers {
   constructor(private readonly getAllUserRepository: IGetAllUserRepository) {}
-  async hendle(_req: IHttRequest<Omit<IUser, "id">>): Promise<IHttResponse> {
+  async hendle(_req: IHttRequest<any>): Promise<IHttResponse> {
     try {
       const users = await this.getAllUserRepository.getAll();
 

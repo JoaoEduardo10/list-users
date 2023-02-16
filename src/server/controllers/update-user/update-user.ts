@@ -5,7 +5,9 @@ import { IUpdateUserParams, IUpdateUserRepository } from "./protocols";
 export class UpdateUserController implements IControlers {
   constructor(private readonly updateUserRepository: IUpdateUserRepository) {}
 
-  async hendle(req: IHttRequest<IUpdateUserParams>): Promise<IHttResponse> {
+  async hendle(
+    req: IHttRequest<IUpdateUserParams | string>
+  ): Promise<IHttResponse> {
     try {
       const id = req.params.id;
       const body = req.body as IUpdateUserParams;
